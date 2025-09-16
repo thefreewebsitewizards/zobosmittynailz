@@ -3810,6 +3810,7 @@ body:not(.has-promo) .navbar {
 
     .email-signup {
         flex-direction: column;
+        text-align: center;
     }
 
     .footer-content {
