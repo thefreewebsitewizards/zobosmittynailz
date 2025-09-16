@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Zobosmitty Nailz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="shop.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Promotional Banner -->
+    <div class="promo-banner">
+        <div class="container">
+            <div class="promo-content">
+                <span class="promo-text">🎉 New Customer Special: Get 15% off your first order with code WELCOME15</span>
+                <button class="promo-close">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/Logo.png" alt="Zobosmitty Nailz Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <button class="nav-close" id="nav-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="shop.html" class="nav-link active">Shop</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="custom-orders.html" class="nav-link">Custom Orders</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="faq.html" class="nav-link">FAQs</a>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-icon-btn" id="search-btn" title="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+                <button class="nav-icon-btn account-btn" onclick="openModal('login-modal')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+
+                <button class="nav-icon-btn cart-btn" id="cart-btn" title="Shopping Cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" id="cart-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <p>Your cart is empty</p>
+                <button class="btn-primary" onclick="document.getElementById('cart-sidebar').classList.remove('active')">Continue Shopping</button>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">£0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Shipping:</span>
+                    <span>Free</span>
+                </div>
+                <div class="total-row discount-row" id="cart-discount-row" style="display: none;">
+                    <span>Discount:</span>
+                    <span id="cart-discount">-£0.00</span>
+                </div>
+                <div class="total-row total-final">
+                    <span>Total:</span>
+                    <span id="cart-total">£0.00</span>
+                </div>
+            </div>
+            <div class="cart-promo-section">
+                <div class="promo-code-input">
+                    <input type="text" id="cart-promo-input" placeholder="Enter promo code" maxlength="20">
+                    <button type="button" id="cart-apply-promo" class="btn-apply-promo">Apply</button>
+                </div>
+                <div class="promo-message" id="cart-promo-message"></div>
+            </div>
+            <div class="cart-actions">
+                <button class="btn-clear-cart" id="clear-cart-btn">Clear Cart</button>
+                <button class="btn-checkout" id="checkout-btn">Checkout</button>
+            </div>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <!-- Shop Page Content -->
+    <main class="shop-page">
+        <!-- Banner Section -->
+        <section class="shop-banner">
+            <div class="banner-container">
+                <img src="images/banner1.png" alt="Zobosmitty Nailz Collection" class="banner-image">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h1 class="banner-title">Premium Nail Collections</h1>
+                        <p class="banner-subtitle">Discover our luxury press-on nails</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-header">
+                    <h2 class="filter-title">Shop Collections</h2>
+                    <div class="results-count">
+                        <span id="results-count">16 products</span>
+                    </div>
+                </div>
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <input type="text" id="product-search" placeholder="Search products...">
+                        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="filter-controls">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All Products</button>
+                        <button class="filter-btn" data-filter="new">New Arrivals</button>
+                        <button class="filter-btn" data-filter="bestseller">Best Sellers</button>
+                        <button class="filter-btn" data-filter="chrome">Chrome Finish</button>
+                        <button class="filter-btn" data-filter="holographic">Holographic</button>
+                    </div>
+                    <div class="sort-dropdown">
+                        <select id="sort-select">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">Name A-Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Grid Section -->
+        <section class="products-section">
+            <div class="container">
+                <div class="products-grid" id="products-grid">
+                    <!-- Product Card 1 -->
+                    <div class="product-card" data-category="holographic bestseller" data-product-id="holographic-shine">
+                        <div class="product-image" onclick="openQuickView('holographic-shine')" style="cursor: pointer;">
+                            <img src="images/collections/holographic shine.png" alt="Holographic Shine" class="product-img default">
+                            <img src="images/collections/holographic shine hovered.png" alt="Holographic Shine Hover" class="product-img hover">
+                            <div class="product-badges">
+                                <span class="badge bestseller">Best Seller</span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Holographic Shine</h3>
+                            <p class="product-description">Iridescent holographic finish with rainbow reflections</p>
+                            <div class="product-price">
+                                <span class="price">£25.00</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="product-card" data-category="chrome new" data-product-id="crystal-clear">
+                        <div class="product-image" onclick="openQuickView('crystal-clear')" style="cursor: pointer;">
+                            <img src="images/collections/crystal clear hovered.png" alt="Crystal Clear" class="product-img default">
+                            <img src="images/collections/crystal clear.png" alt="Crystal Clear Hover" class="product-img hover">
+                            <div class="product-badges">
+                                <span class="badge new">New</span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Crystal Clear</h3>
+                            <p class="product-description">Ultra-clear chrome finish for a glass-like effect</p>
+                            <div class="product-price">
+                                <span class="price">£22.00</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="product-card" data-category="chrome bestseller" data-product-id="midnight-glamour">
+                        <div class="product-image" onclick="openQuickView('midnight-glamour')" style="cursor: pointer;">
+                            <img src="images/collections/midnight glamour.png" alt="Midnight Glamour" class="product-img default">
+                            <img src="images/collections/midnight glamour hover.png" alt="Midnight Glamour Hover" class="product-img hover">
+                            <div class="product-badges">
+                                <span class="badge bestseller">Best Seller</span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Midnight Glamour</h3>
+                            <p class="product-description">Deep black chrome with metallic undertones</p>
+                            <div class="product-price">
+                                <span class="price">£28.00</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="product-card" data-category="holographic new" data-product-id="rose-gold-dreams">
+                        <div class="product-image" onclick="openQuickView('rose-gold-dreams')" style="cursor: pointer;">
+                            <img src="images/collections/rose gold dreams.png" alt="Rose Gold Dreams" class="product-img default">
+                            <img src="images/collections/rose gold dreams hovered.png" alt="Rose Gold Dreams Hover" class="product-img hover">
+                            <div class="product-badges">
+                                <span class="badge new">New</span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Rose Gold Dreams</h3>
+                            <p class="product-description">Warm rose gold holographic with pink undertones</p>
+                            <div class="product-price">
+                                <span class="price">£26.00</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ZOBOSMITTY NAILZ</h3>
+                    <p>Reusable. Collectable. Unforgettable.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <a href="https://instagram.com/zobosmittynailz" target="_blank">Instagram</a>
+                        <a href="https://tiktok.com/@zobosmittynailz" target="_blank">TikTok</a>
+                        <a href="mailto:hello@zobosmittynailz.com">Email</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zobosmitty Nailz. All rights reserved.</p>
+                <p><a href="https://www.thefreewebsitewizards.com/" target="_blank">Built by The Free Website Wizards</a></p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="modal-close" onclick="closeModal('login-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Login</button>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="switchModal('login-modal', 'register-modal')">Sign up</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="register-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <button class="modal-close" onclick="closeModal('register-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm">Confirm Password</label>
+                        <input type="password" id="register-confirm" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Create Account</button>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="switchModal('register-modal', 'login-modal')">Login</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal checkout-modal">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <button class="modal-close" onclick="closeModal('checkout-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-container">
+                    <div class="checkout-left">
+                        <div class="checkout-section">
+                            <h3>Contact Information</h3>
+                            <form class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkout-email">Email *</label>
+                                        <input type="email" id="checkout-email">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkout-phone">Phone Number *</label>
+                                        <input type="tel" id="checkout-phone">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="checkout-section">
+                            <h3>Shipping Address</h3>
+                            <form class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="first-name">First Name *</label>
+                                        <input type="text" id="first-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last-name">Last Name *</label>
+                                        <input type="text" id="last-name">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address">Address *</label>
+                                        <input type="text" id="address">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="city">City *</label>
+                                        <input type="text" id="city">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postal-code">Postal Code *</label>
+                                        <input type="text" id="postal-code">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="country">Country *</label>
+                                        <select id="country">
+                                            <option value="">Select Country</option>
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="US">United States</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="AU">Australia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="checkout-section">
+                            <h3>Payment Information</h3>
+                            <form class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="card-number">Card Number *</label>
+                                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiry">Expiry Date *</label>
+                                        <input type="text" id="expiry" placeholder="MM/YY">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" placeholder="123">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cardholder-name">Cardholder Name</label>
+                                        <input type="text" id="cardholder-name">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="checkout-right">
+                        <div class="order-summary">
+                            <h3>Order Summary</h3>
+                            <div class="checkout-items" id="checkout-items">
+                                <!-- Items will be populated by JavaScript -->
+                            </div>
+                            <div class="checkout-totals">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="checkout-subtotal">£0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Shipping:</span>
+                                    <span id="checkout-shipping">£4.99</span>
+                                </div>
+                                <div class="total-row discount-row" id="discount-row" style="display: none;">
+                                    <span>Discount:</span>
+                                    <span id="checkout-discount">-£0.00</span>
+                                </div>
+                                <div class="total-row final-total">
+                                    <span>Total:</span>
+                                    <span id="checkout-total">£0.00</span>
+                                </div>
+                            </div>
+                            <div class="discount-code">
+                                <input type="text" id="discount-input" placeholder="Enter discount code">
+                                <button type="button" id="apply-discount">Apply</button>
+                            </div>
+                            <button class="place-order-btn" id="place-order">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

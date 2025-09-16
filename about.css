@@ -1,0 +1,1060 @@
+/* About Page Specific Styles - Monochrome Design */
+
+/* About Hero Section */
+.about-hero {
+    padding: 8rem 0 4rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/banner2.png');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.03) 2px,
+        rgba(255, 255, 255, 0.03) 4px
+    );
+    pointer-events: none;
+}
+
+.about-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-hero-content h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    font-family: 'Playfair Display', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    letter-spacing: 2px;
+    padding: 0 2rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease 0.3s forwards;
+}
+
+.about-hero-content p {
+    font-size: 1.3rem;
+    opacity: 0;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+    letter-spacing: 1px;
+    padding: 0 2rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease 0.6s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Text Animation Classes */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.fade-in-up.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.8s ease;
+}
+
+.fade-in-left.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.fade-in-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.8s ease;
+}
+
+.fade-in-right.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.stagger-delay-1 { transition-delay: 0.1s; }
+.stagger-delay-2 { transition-delay: 0.2s; }
+.stagger-delay-3 { transition-delay: 0.3s; }
+.stagger-delay-4 { transition-delay: 0.4s; }
+
+/* Bio/Founder Section */
+.bio-section {
+    padding: 6rem 0;
+    background: #ffffff;
+    position: relative;
+}
+
+.bio-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 50px,
+        rgba(0, 0, 0, 0.02) 50px,
+        rgba(0, 0, 0, 0.02) 52px
+    );
+    pointer-events: none;
+}
+
+.bio-content {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 0;
+}
+
+.bio-header {
+    margin-bottom: 3rem;
+    padding: 0 2rem;
+}
+
+.bio-header h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+    display: inline-block;
+}
+
+.bio-subtitle {
+    font-size: 1.1rem;
+    color: #666666;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.bio-text {
+    text-align: left;
+    padding: 0 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.bio-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+/* Brand Section */
+.brand-section {
+    padding: 6rem 0;
+    background: #f8f8f8;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-content {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 0;
+}
+
+.brand-content h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 2rem;
+    font-family: 'Playfair Display', serif;
+    padding: 0 2rem;
+}
+
+.brand-description {
+    text-align: left;
+    padding: 0 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.brand-description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+/* Services Section */
+.services-section {
+    padding: 6rem 0;
+    background: #ffffff;
+    position: relative;
+}
+
+.services-content {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 0;
+}
+
+.services-content h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 3rem;
+    font-family: 'Playfair Display', serif;
+    padding: 0 2rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0 2rem;
+}
+
+.service-item {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 2px solid #f0f0f0;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.service-item:hover {
+    border-color: #000000;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    border-radius: 50%;
+    color: white;
+}
+
+.service-item h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.service-item p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666666;
+    font-weight: 400;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .bio-content,
+    .brand-content,
+    .services-content,
+    .contact-content {
+        padding: 0 1rem;
+    }
+    
+    .bio-header h2,
+    .brand-content h2,
+    .services-content h2,
+    .contact-content h2 {
+        font-size: 2rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .bio-section,
+    .brand-section,
+    .services-section,
+    .contact-section {
+        padding: 4rem 0;
+    }
+}
+
+.story-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: #000000;
+}
+
+.story-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+.story-highlight {
+    background: #000000;
+    color: white;
+    padding: 2rem;
+    border-radius: 0;
+    margin: 3rem 0;
+    position: relative;
+    border: 2px solid #333333;
+}
+
+.story-highlight::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid #666666;
+    pointer-events: none;
+}
+
+.story-highlight h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.story-highlight p {
+    color: #cccccc;
+    font-size: 1rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+}
+
+/* Values Section */
+.values-section {
+    padding: 6rem 0;
+    background: #f8f8f8;
+    position: relative;
+}
+
+.values-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 80px,
+        rgba(0, 0, 0, 0.02) 80px,
+        rgba(0, 0, 0, 0.02) 82px
+    );
+    pointer-events: none;
+}
+
+.values-content {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 0 2rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.value-card {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 0;
+    background: #ffffff;
+    border: 2px solid #000000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.value-card::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 1px solid #cccccc;
+    pointer-events: none;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    background: #000000;
+    color: white;
+}
+
+.value-card:hover h3,
+.value-card:hover p {
+    color: white;
+}
+
+.value-card:hover .value-icon {
+    background: #ffffff;
+    color: #000000;
+}
+
+.value-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: #000000;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    border: 2px solid #333333;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.value-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.value-card p {
+    color: #333333;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+/* Team Section */
+.team-section {
+    padding: 6rem 0;
+    background: #ffffff;
+    position: relative;
+}
+
+.team-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 60px,
+        rgba(0, 0, 0, 0.02) 60px,
+        rgba(0, 0, 0, 0.02) 62px
+    );
+    pointer-events: none;
+}
+
+.team-content {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 0 2rem;
+}
+
+.team-content h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+    display: inline-block;
+}
+
+.team-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: #ffffff;
+}
+
+.team-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #cccccc;
+    margin-bottom: 3rem;
+}
+
+.founder-card {
+    background: #ffffff;
+    color: #000000;
+    border-radius: 0;
+    padding: 3rem;
+    border: 2px solid #333333;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.founder-card::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid #cccccc;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .about-hero-content h1 {
+        font-size: 3rem;
+    }
+    
+    .story-content h2,
+    .team-content h2 {
+        font-size: 2.2rem;
+    }
+    
+    .values-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero {
+        padding: 6rem 0 3rem;
+    }
+    
+    .about-hero-content h1 {
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+    }
+    
+    .about-hero-content p {
+        font-size: 1.1rem;
+    }
+    
+    .story-section,
+    .values-section,
+    .team-section {
+        padding: 4rem 0;
+    }
+    
+    .story-content,
+    .team-content {
+        padding: 0 1rem;
+    }
+    
+    .story-content h2,
+    .team-content h2 {
+        font-size: 2rem;
+    }
+    
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .value-card {
+        padding: 1.5rem;
+    }
+    
+    .story-highlight {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+    
+    .founder-card {
+        padding: 2rem;
+        margin: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .story-content h2,
+    .team-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .story-text,
+    .team-description {
+        font-size: 1rem;
+    }
+    
+    .value-card {
+        padding: 1rem;
+    }
+    
+    .value-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+
+.founder-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 0;
+    border: 2px solid #000000;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    font-weight: 600;
+}
+
+.founder-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.founder-title {
+    color: #000;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.founder-bio {
+    color: #6c757d;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* Mission Section */
+.mission-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+    color: white;
+    text-align: center;
+}
+
+.mission-content h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.mission-statement {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.95;
+}
+
+/* Page Down Button */
+.page-down-btn {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    animation: bounce 2s infinite;
+}
+
+.page-down-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateX(-50%) translateY(-5px);
+}
+
+.page-down-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+    transition: transform 0.3s ease;
+}
+
+.page-down-btn:hover svg {
+    transform: translateY(3px);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* Mobile Responsive - Hide page down button */
+@media (max-width: 768px) {
+    .page-down-btn {
+        display: none;
+    }
+}
+
+/* Responsive Design - Optimized Banner Display */
+
+/* Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+    .about-hero {
+        min-height: 100vh;
+        background-size: cover;
+        background-position: center center;
+    }
+    
+    .about-hero-content h1 {
+        font-size: 4.5rem;
+    }
+    
+    .about-hero-content p {
+        font-size: 1.4rem;
+    }
+}
+
+/* Desktop (1024px - 1439px) */
+@media (max-width: 1439px) and (min-width: 1024px) {
+    .about-hero {
+        min-height: 95vh;
+        width: 100%;
+        padding: 7rem 0 4rem;
+        background-size: cover;
+        background-position: center center;
+        overflow: hidden;
+    }
+    
+    .about-hero-content h1 {
+        font-size: 4rem;
+    }
+    
+    .about-hero-content p {
+        font-size: 1.3rem;
+    }
+}
+
+/* Tablet Landscape (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .about-hero {
+        min-height: 90vh;
+        width: 100%;
+        padding: 6rem 0 3rem;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+        overflow: hidden;
+    }
+    
+    .about-hero-content h1 {
+        font-size: 3.5rem;
+        padding: 0 2rem;
+    }
+    
+    .about-hero-content p {
+        font-size: 1.2rem;
+        padding: 0 2rem;
+    }
+}
+
+/* Tablet Portrait (425px - 767px) */
+@media (max-width: 767px) and (min-width: 425px) {
+    .about-hero {
+        min-height: 80vh;
+        width: 100%;
+        padding: 5rem 0 3rem;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+        overflow: hidden;
+    }
+    
+    .about-hero-content h1 {
+        font-size: 3rem;
+        padding: 0 1.5rem;
+    }
+    
+    .about-hero-content p {
+        font-size: 1.1rem;
+        padding: 0 1.5rem;
+    }
+    
+    .story-content h2,
+    .team-content h2,
+    .mission-content h2 {
+        font-size: 2rem;
+    }
+    
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .founder-card {
+        padding: 2rem;
+    }
+    
+    .page-down-btn {
+        width: 50px;
+        height: 50px;
+        bottom: 1.5rem;
+    }
+    
+    .page-down-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Mobile Large (375px - 424px) */
+@media (max-width: 424px) and (min-width: 375px) {
+    .about-hero {
+        min-height: 75vh;
+        width: 100%;
+        padding: 4rem 0 2rem;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+        overflow: hidden;
+    }
+    
+    .about-hero-content h1 {
+        font-size: 2.5rem;
+        padding: 0 1rem;
+        line-height: 1.2;
+    }
+    
+    .about-hero-content p {
+        font-size: 1rem;
+        padding: 0 1rem;
+        line-height: 1.5;
+    }
+    
+    .story-section,
+    .values-section,
+    .team-section,
+    .mission-section {
+        padding: 4rem 0;
+    }
+    
+    .story-highlight {
+        padding: 1.5rem;
+    }
+    
+    .value-card {
+        padding: 1.5rem;
+    }
+    
+    .page-down-btn {
+        width: 45px;
+        height: 45px;
+        bottom: 1rem;
+    }
+    
+    .page-down-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Mobile Medium (320px - 374px) */
+@media (max-width: 374px) and (min-width: 320px) {
+    .about-hero {
+        min-height: 70vh;
+        width: 100%;
+        padding: 3rem 0 2rem;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+        overflow: hidden;
+    }
+    
+    .about-hero-content h1 {
+        font-size: 2.2rem;
+        padding: 0 0.8rem;
+        line-height: 1.1;
+    }
+    
+    .about-hero-content p {
+        font-size: 0.95rem;
+        padding: 0 0.8rem;
+        line-height: 1.4;
+    }
+    
+    .story-section,
+    .values-section,
+    .team-section,
+    .mission-section {
+        padding: 3rem 0;
+    }
+    
+    .story-highlight {
+        padding: 1rem;
+    }
+    
+    .value-card {
+        padding: 1rem;
+    }
+    
+    .page-down-btn {
+        width: 40px;
+        height: 40px;
+        bottom: 0.8rem;
+    }
+    
+    .page-down-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Mobile Small (below 320px) */
+@media (max-width: 319px) {
+    .about-hero {
+        min-height: 65vh;
+        width: 100%;
+        padding: 2.5rem 0 1.5rem;
+        overflow: hidden;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+    }
+    
+    .about-hero-content h1 {
+        font-size: 1.8rem;
+        padding: 0 0.5rem;
+        line-height: 1.1;
+    }
+    
+    .about-hero-content p {
+        font-size: 0.9rem;
+        padding: 0 0.5rem;
+        line-height: 1.3;
+    }
+    
+    .page-down-btn {
+        width: 35px;
+        height: 35px;
+        bottom: 0.5rem;
+    }
+    
+    .page-down-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+}

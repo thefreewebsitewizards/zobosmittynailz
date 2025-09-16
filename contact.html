@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Zobosmitty Nailz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <!-- <div class="loading" id="loading">
+        <div class="loading-content">
+            <img src="images/preloader animation.gif" alt="Loading" class="loading-gif">
+            <div class="loading-text">Loading<span class="dots"></span></div>
+        </div>
+    </div> -->
+
+    <!-- Promotional Banner -->
+    <div class="promo-banner">
+        <div class="container">
+            <div class="promo-content">
+                <span class="promo-text">🎉 New Customer Special: Get 15% off your first order with code WELCOME15</span>
+                <button class="promo-close">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/Logo.png" alt="Zobosmitty Nailz Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <button class="nav-close" id="nav-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="shop.html" class="nav-link">Shop</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="custom-orders.html" class="nav-link">Custom Orders</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+                <a href="faq.html" class="nav-link">FAQs</a>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-icon-btn" id="search-btn" title="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+                <button class="nav-icon-btn account-btn" onclick="openModal('login-modal')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+
+                <button class="nav-icon-btn cart-btn" id="cart-btn" title="Shopping Cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" id="cart-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <p>Your cart is empty</p>
+                <button class="btn-primary" onclick="document.getElementById('cart-sidebar').classList.remove('active')">Continue Shopping</button>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">£0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Shipping:</span>
+                    <span>Free</span>
+                </div>
+                <div class="total-row discount-row" id="cart-discount-row" style="display: none;">
+                    <span>Discount:</span>
+                    <span id="cart-discount">-£0.00</span>
+                </div>
+                <div class="total-row total-final">
+                    <span>Total:</span>
+                    <span id="cart-total">£0.00</span>
+                </div>
+            </div>
+            <div class="cart-promo-section">
+                <div class="promo-code-input">
+                    <input type="text" id="cart-promo-input" placeholder="Enter promo code" maxlength="20">
+                    <button type="button" id="cart-apply-promo" class="btn-apply-promo">Apply</button>
+                </div>
+                <div class="promo-message" id="cart-promo-message"></div>
+            </div>
+            <div class="cart-actions">
+                <button class="btn-clear-cart" id="clear-cart-btn">Clear Cart</button>
+                <button class="btn-checkout" id="checkout-btn">Checkout</button>
+            </div>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <!-- Contact Page Content -->
+    <main class="contact-page">
+            <!-- Hero Section -->
+            <section class="contact-hero">
+                <div class="contact-hero-content">
+                    <h1>Get In Touch</h1>
+                    <p>Ready to transform your nails? Let's create something beautiful together. Whether you have questions, want to place a custom order, or just want to say hello, we'd love to hear from you.</p>
+                </div>
+                <button class="page-down-btn" onclick="scrollToNextSection()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6,9 12,15 18,9"></polyline>
+                    </svg>
+                </button>
+            </section>
+
+            <!-- Contact Content -->
+            <section class="contact-content">
+                <div class="contact-grid">
+                    <!-- Contact Form -->
+                    <div class="contact-form-wrapper fade-in-left">
+                        <h2>Send us a Message</h2>
+                        <p class="form-description">Have a specific design in mind? Questions about our process? Or just want to chat about nails? Drop us a line!</p>
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-group">
+                                <label for="contact-name">Name *</label>
+                                <input type="text" id="contact-name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-email">Email *</label>
+                                <input type="email" id="contact-email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-subject">Subject</label>
+                                <select id="contact-subject" name="subject">
+                                    <option value="">Select a topic...</option>
+                                    <option value="custom-order">Custom Order Inquiry</option>
+                                    <option value="general">General Question</option>
+                                    <option value="collaboration">Collaboration</option>
+                                    <option value="support">Customer Support</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-message">Message *</label>
+                                <textarea id="contact-message" name="message" rows="6" placeholder="Tell us about your nail vision, ask questions, or just say hello..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="contact-info-wrapper fade-in-right">
+                        <h2>Connect With Us</h2>
+                        <p class="info-description">Follow our journey and get inspired by our latest creations. We love connecting with our nail community!</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method email-method fade-in-up stagger-delay-1">
+                                <div class="contact-method-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="contact-method-content">
+                                    <h3>Email</h3>
+                                    <p>hello@zobosmittynailz.com</p>
+                                    <span class="contact-note">We typically respond within 24 hours</span>
+                                </div>
+                            </div>
+
+                            <div class="contact-method">
+                                <div class="contact-method-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                                <div class="contact-method-content">
+                                    <h3>Instagram</h3>
+                                    <p>@zobosmittynailz</p>
+                                    <span class="contact-note">Daily nail inspiration & behind-the-scenes</span>
+                                </div>
+                            </div>
+
+                            <div class="contact-method">
+                                <div class="contact-method-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                                    </svg>
+                                </div>
+                                <div class="contact-method-content">
+                                    <h3>TikTok</h3>
+                                    <p>@zobosmittynailz</p>
+                                    <span class="contact-note">Nail art tutorials & quick tips</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+
+
+    </main>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ZOBOSMITTY NAILZ</h3>
+                    <p>Reusable. Collectable. Unforgettable.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <a href="https://instagram.com/zobosmittynailz" target="_blank">Instagram</a>
+                        <a href="https://tiktok.com/@zobosmittynailz" target="_blank">TikTok</a>
+                        <a href="mailto:hello@zobosmittynailz.com">Email</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zobosmitty Nailz. All rights reserved.</p>
+                <p><a href="https://www.thefreewebsitewizards.com/" target="_blank">Built by The Free Website Wizards</a></p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="modal-close" onclick="closeModal('login-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Login</button>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="switchModal('login-modal', 'register-modal')">Sign up</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="register-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <button class="modal-close" onclick="closeModal('register-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm">Confirm Password</label>
+                        <input type="password" id="register-confirm" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Create Account</button>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="switchModal('register-modal', 'login-modal')">Login</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal checkout-modal">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <button class="modal-close" onclick="closeModal('checkout-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-container">
+                    <div class="checkout-left">
+                        <div class="checkout-section">
+                            <h3>Contact Information</h3>
+                            <form class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkout-email">Email *</label>
+                                        <input type="email" id="checkout-email">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkout-phone">Phone Number *</label>
+                                        <input type="tel" id="checkout-phone">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="checkout-section">
+                            <h3>Shipping Address</h3>
+                            <form class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="first-name">First Name *</label>
+                                        <input type="text" id="first-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last-name">Last Name *</label>
+                                        <input type="text" id="last-name">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address">Address *</label>
+                                        <input type="text" id="address">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="city">City *</label>
+                                        <input type="text" id="city">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postal-code">Postal Code *</label>
+                                        <input type="text" id="postal-code">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="country">Country *</label>
+                                        <select id="country">
+                                            <option value="">Select Country</option>
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="US">United States</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="AU">Australia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="checkout-section">
+                            <h3>Payment Information</h3>
+                            <form class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="card-number">Card Number *</label>
+                                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiry">Expiry Date *</label>
+                                        <input type="text" id="expiry" placeholder="MM/YY">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" placeholder="123">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cardholder-name">Cardholder Name</label>
+                                        <input type="text" id="cardholder-name">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="checkout-right">
+                        <div class="order-summary">
+                            <h3>Order Summary</h3>
+                            <div class="checkout-items" id="checkout-items">
+                                <!-- Items will be populated by JavaScript -->
+                            </div>
+                            <div class="checkout-totals">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="checkout-subtotal">£0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Shipping:</span>
+                                    <span id="checkout-shipping">£4.99</span>
+                                </div>
+                                <div class="total-row discount-row" id="discount-row" style="display: none;">
+                                    <span>Discount:</span>
+                                    <span id="checkout-discount">-£0.00</span>
+                                </div>
+                                <div class="total-row final-total">
+                                    <span>Total:</span>
+                                    <span id="checkout-total">£0.00</span>
+                                </div>
+                            </div>
+                            <div class="discount-code">
+                                <input type="text" id="discount-input" placeholder="Enter discount code">
+                                <button type="button" id="apply-discount">Apply</button>
+                            </div>
+                            <button class="place-order-btn" id="place-order">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        function scrollToNextSection() {
+            const nextSection = document.querySelector('.contact-content');
+            if (nextSection) {
+                nextSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const animatedElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
+            
+            animatedElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('animate');
+                }
+            });
+        }
+
+        // Initialize animations
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>

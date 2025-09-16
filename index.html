@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zobosmitty Nailz - Luxury press-on nails that are reusable, collectable, and unforgettable. Shop handcrafted nail art without the salon cost.">
+    <meta name="keywords" content="press-on nails, luxury nails, reusable nails, nail art, custom nails, zobosmitty">
+    <title>Zobosmitty Nailz - Reusable. Collectable. Unforgettable.</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/Logo.png" alt="Zobosmitty Nailz Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <button class="nav-close" id="nav-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="shop.html" class="nav-link">Shop</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="custom-orders.html" class="nav-link">Custom Orders</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="faq.html" class="nav-link">FAQs</a>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-icon-btn" id="search-btn" title="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+                <button class="nav-icon-btn account-btn" onclick="openModal('login-modal')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+
+                <button class="nav-icon-btn cart-btn" id="cart-btn" title="Shopping Cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" id="cart-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <p>Your cart is empty</p>
+                <button class="btn-primary" onclick="document.getElementById('cart-sidebar').classList.remove('active')">Continue Shopping</button>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">£0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Shipping:</span>
+                    <span>Free</span>
+                </div>
+                <div class="total-row discount-row" id="cart-discount-row" style="display: none;">
+                    <span>Discount:</span>
+                    <span id="cart-discount">-£0.00</span>
+                </div>
+                <div class="total-row total-final">
+                    <span>Total:</span>
+                    <span id="cart-total">£0.00</span>
+                </div>
+            </div>
+            <div class="cart-promo-section">
+                <div class="promo-code-input">
+                    <input type="text" id="cart-promo-input" placeholder="Enter promo code" maxlength="20">
+                    <button type="button" id="cart-apply-promo" class="btn-apply-promo">Apply</button>
+                </div>
+                <div class="promo-message" id="cart-promo-message"></div>
+            </div>
+            <div class="cart-actions">
+                <button class="btn-clear-cart" id="clear-cart-btn">Clear Cart</button>
+                <button class="btn-checkout" id="checkout-btn">Checkout</button>
+            </div>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="modal-close" onclick="closeModal('login-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Login</button>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="switchModal('login-modal', 'register-modal')">Sign up</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="register-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <button class="modal-close" onclick="closeModal('register-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm">Confirm Password</label>
+                        <input type="password" id="register-confirm" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Create Account</button>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="switchModal('register-modal', 'login-modal')">Login</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promotional Banner -->
+    <div class="promo-banner">
+        <div class="container">
+            <div class="promo-content">
+                <span class="promo-text">🎉 New Customer Special: Get 15% off your first order with code WELCOME15</span>
+                <button class="promo-close">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal checkout-modal">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <button class="modal-close" onclick="closeModal('checkout-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-container">
+                    <div class="checkout-left">
+                        <div class="checkout-section">
+                            <h3>Contact Information</h3>
+                            <form class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkout-email">Email *</label>
+                                        <input type="email" id="checkout-email">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkout-phone">Phone Number *</label>
+                                        <input type="tel" id="checkout-phone">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="checkout-section">
+                            <h3>Shipping Address</h3>
+                            <form class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="first-name">First Name *</label>
+                                        <input type="text" id="first-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last-name">Last Name *</label>
+                                        <input type="text" id="last-name">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address">Address *</label>
+                                        <input type="text" id="address">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="city">City *</label>
+                                        <input type="text" id="city">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postal-code">Postal Code *</label>
+                                        <input type="text" id="postal-code">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="country">Country *</label>
+                                        <select id="country">
+                                            <option value="">Select Country</option>
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="US">United States</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="AU">Australia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="checkout-section">
+                            <h3>Payment Information</h3>
+                            <form class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="card-number">Card Number *</label>
+                                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiry">Expiry Date *</label>
+                                        <input type="text" id="expiry" placeholder="MM/YY">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" placeholder="123">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cardholder-name">Cardholder Name</label>
+                                        <input type="text" id="cardholder-name">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="checkout-right">
+                        <div class="order-summary">
+                            <h3>Order Summary</h3>
+                            <div class="checkout-items" id="checkout-items">
+                                <!-- Items will be populated by JavaScript -->
+                            </div>
+                            <div class="checkout-totals">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="checkout-subtotal">£0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Shipping:</span>
+                                    <span id="checkout-shipping">£4.99</span>
+                                </div>
+                                <div class="total-row discount-row" id="discount-row" style="display: none;">
+                                    <span>Discount:</span>
+                                    <span id="checkout-discount">-£0.00</span>
+                                </div>
+                                <div class="total-row final-total">
+                                    <span>Total:</span>
+                                    <span id="checkout-total">£0.00</span>
+                                </div>
+                            </div>
+                            <div class="discount-code">
+                                <input type="text" id="discount-input" placeholder="Enter discount code">
+                                <button type="button" id="apply-discount">Apply</button>
+                            </div>
+                            <button class="place-order-btn" id="place-order">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <img src="images/banner1.png" alt="Hero Background" class="hero-bg-image">
+            <div class="hero-overlay"></div>
+            <div class="hero-particles"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Nails Worth Collecting</h1>
+            <p class="hero-subtitle">Luxury press-ons, handcrafted for beauty that lasts. Wear them, love them, reuse them—just like your favourite piece of jewellery.</p>
+            <div class="hero-ctas">
+                <button class="cta-primary">Shop the Collection</button>
+                <button class="cta-secondary">Customise Your Set</button>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Value Proposition Strip -->
+    <section class="value-prop">
+        <div class="container">
+            <div class="value-grid">
+                <div class="value-item">
+                    <div class="value-icon"><img src="images/icons/diamond.png" alt="Diamond icon"></div>
+                    <h3>Durable</h3>
+                    <p>Built to last</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon"><img src="images/icons/money-bag.png" alt="Money bag icon"></div>
+                    <h3>Cost-Effective</h3>
+                    <p>Luxury nails without the salon price tag</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon"><img src="images/icons/star.png" alt="Star icon"></div>
+                    <h3>Custom-Fit</h3>
+                    <p>Perfect sizing for comfort and wearability</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collections -->
+    <section id="collections" class="featured-collections">
+        <div class="container">
+            <h2 class="section-title">Shop Our Collections</h2>
+            
+
+            
+            <div class="collections-carousel" id="collections-carousel">
+                <button class="carousel-nav carousel-prev" id="carousel-prev">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15,18 9,12 15,6"></polyline>
+                    </svg>
+                </button>
+                
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carousel-track">
+                        <div class="collection-slide">
+                            <div class="card-image">
+                                <img src="images/collections/midnight glamour.png" alt="Midnight Glamour Nails" loading="lazy">
+                                <img src="images/collections/midnight glamour hover.png" alt="Midnight Glamour Nails Hover" class="hover-image" loading="lazy">
+                                <div class="card-content">
+                                     <h3>Midnight Glamour</h3>
+                                     <span class="price">£45.00</span>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="collection-slide">
+                            <div class="card-image">
+                                <img src="images/collections/rose gold dreams.png" alt="Rose Gold Dreams Nails" loading="lazy">
+                                <img src="images/collections/rose gold dreams hovered.png" alt="Rose Gold Dreams Nails Hover" class="hover-image" loading="lazy">
+                                <div class="card-content">
+                                     <h3>Rose Gold Dreams</h3>
+                                     <span class="price">£48.00</span>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="collection-slide">
+                            <div class="card-image">
+                                <img src="images/collections/crystal clear hovered.png" alt="Crystal Clear Nails" loading="lazy">
+                                <img src="images/collections/crystal clear.png" alt="Crystal Clear Nails Hover" class="hover-image" loading="lazy">
+                                <div class="card-content">
+                                     <h3>Crystal Clear</h3>
+                                     <span class="price">£42.00</span>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="collection-slide">
+                            <div class="card-image">
+                                <img src="images/collections/holographic shine.png" alt="Holographic Shine Nails" loading="lazy">
+                                <img src="images/collections/holographic shine hovered.png" alt="Holographic Shine Nails Hover" class="hover-image" loading="lazy">
+                                <div class="card-content">
+                                     <h3>Holographic Shine</h3>
+                                     <span class="price">£52.00</span>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-nav carousel-next" id="carousel-next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9,18 15,12 9,6"></polyline>
+                    </svg>
+                </button>
+                
+                <div class="carousel-indicators" id="carousel-indicators">
+                    <button class="indicator active" data-slide="0"></button>
+                    <button class="indicator" data-slide="1"></button>
+                    <button class="indicator" data-slide="2"></button>
+                    <button class="indicator" data-slide="3"></button>
+                </div>
+            </div>
+            <div class="collections-cta">
+                <button class="add-to-collection">VIEW ALL COLLECTIONS</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Snapshot -->
+    <section id="about" class="about-snapshot">
+        <div class="container">
+            <div class="about-content">
+                <h2><strong>From 15 years in tech to creating wearable art</strong>—Zobosmitty Nailz is where creativity meets craftsmanship.</h2>
+                <p>Every set is designed to be as timeless as jewellery, giving you salon-quality nails you can wear and re-wear.</p>
+                <button class="cta-primary">Read My Story</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reusables Education -->
+    <section class="reusables-education">
+        <div class="container">
+            <h2 class="section-title">Why Reusable Wins</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon"><img src="images/icons/bars.png" alt="Chart icon"></div>
+                    <h3>Cost-Per-Wear</h3>
+                    <p>Far less than salon visits</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><img src="images/icons/sprout.png" alt="Plant icon"></div>
+                    <h3>Eco-Friendly</h3>
+                    <p>Reducing waste with reusable beauty</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><img src="images/icons/art.png" alt="Art palette icon"></div>
+                    <h3>Mix & Match</h3>
+                    <p>Collect and style like accessories</p>
+                </div>
+            </div>
+            <div class="education-cta">
+                <a href="about.html" class="add-to-collection">Discover the Difference</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sizing Kit CTA Section -->
+    <section id="sizing" class="sizing-kit-cta">
+        <div class="container">
+            <h2 class="section-title">Perfect Fit Guarantee</h2>
+            <p class="sizing-description">Get the perfect fit every time with our comprehensive sizing guide and instructions.</p>
+            <div class="sizing-cta">
+                <a href="faq.html" class="cta-primary">Zobosmitty Nailz – Sizing Kit & Instructions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram & Social Content -->
+    <section class="instagram-showcase">
+        <div class="container">
+            <h2 class="section-title">As Seen on Instagram</h2>
+            <div class="instagram-grid">
+                <div class="instagram-video" onclick="openVideoModal(0)">
+                    <video muted loop autoplay>
+                        <source src="videos/video1.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-overlay">▶</div>
+                </div>
+                <div class="instagram-video" onclick="openVideoModal(1)">
+                    <video muted loop autoplay>
+                        <source src="videos/video2.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-overlay">▶</div>
+                </div>
+                <div class="instagram-video" onclick="openVideoModal(2)">
+                    <video muted loop autoplay>
+                        <source src="videos/video3.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-overlay">▶</div>
+                </div>
+                <div class="instagram-video" onclick="openVideoModal(3)">
+                    <video muted loop autoplay>
+                        <source src="videos/video4.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-overlay">▶</div>
+                </div>
+                <div class="instagram-video" onclick="openVideoModal(4)">
+                    <video muted loop autoplay>
+                        <source src="videos/video5.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-overlay">▶</div>
+                </div>
+                <div class="instagram-video" onclick="openVideoModal(5)">
+                    <video muted loop autoplay>
+                        <source src="videos/video6.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-overlay">▶</div>
+                </div>
+            </div>
+            <div class="instagram-cta">
+                <a href="https://instagram.com/zobosmittynailz" target="_blank" class="cta-primary">Follow Us on Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews & Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Read Our Customer Reviews</h2>
+            <div class="testimonials-marquee">
+                <div class="marquee-content">
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"The design looks exactly like the pictures. It's so stunning and the sticky tabs lasted me for 4 days. Can't wait to wear them again!"</p>
+                        <span class="reviewer">- Thorina, Verified Buyer</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"Great service! Lost a nail and contacted nailcissist and received a rapid response with information and a link to add the missing nail."</p>
+                        <span class="reviewer">- Virginia R., Verified Buyer</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"This set is stunning. From the length to the details to the colours (which look like the pictures), it's the perfect collection."</p>
+                        <span class="reviewer">- Lisa, Verified Buyer</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"Amazing quality and beautiful designs. These nails are worth every penny and I love that I can reuse them!"</p>
+                        <span class="reviewer">- Sarah M., Verified Buyer</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"Perfect fit and gorgeous finish. The customer service is exceptional and delivery was super fast."</p>
+                        <span class="reviewer">- Emma K., Verified Buyer</span>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"The design looks exactly like the pictures. It's so stunning and the sticky tabs lasted me for 4 days. Can't wait to wear them again!"</p>
+                        <span class="reviewer">- Thorina, Verified Buyer</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"Great service! Lost a nail and contacted nailcissist and received a rapid response with information and a link to add the missing nail."</p>
+                        <span class="reviewer">- Virginia R., Verified Buyer</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"This set is stunning. From the length to the details to the colours (which look like the pictures), it's the perfect collection."</p>
+                        <span class="reviewer">- Lisa, Verified Buyer</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"Amazing quality and beautiful designs. These nails are worth every penny and I love that I can reuse them!"</p>
+                        <span class="reviewer">- Sarah M., Verified Buyer</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="stars">★★★★★</div>
+                        <p>"Perfect fit and gorgeous finish. The customer service is exceptional and delivery was super fast."</p>
+                        <span class="reviewer">- Emma K., Verified Buyer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonials-cta">
+                <a href="about.html" class="cta-secondary">Read More Reviews</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join the Nail List - Relocated -->
+    <section class="social-proof final-signup">
+        <div class="container">
+            <h2 class="section-title">Ready to Start Your Collection?</h2>
+            <p class="social-subtitle">Join the Nail List - Be first to shop new drops & get exclusive offers.</p>
+            <div class="email-signup">
+                <input type="email" placeholder="Enter your email" class="email-input">
+                <button class="cta-primary">Sign Me Up</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ZOBOSMITTY NAILZ</h3>
+                    <p>Reusable. Collectable. Unforgettable.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <a href="https://instagram.com/zobosmittynailz" target="_blank">Instagram</a>
+                        <a href="https://tiktok.com/@zobosmittynailz" target="_blank">TikTok</a>
+                        <a href="mailto:hello@zobosmittynailz.com">Email</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zobosmitty Nailz. All rights reserved.</p>
+                <p><a href="https://www.thefreewebsitewizards.com/" target="_blank">Built by The Free Website Wizards</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
+            <button class="nav-btn prev-btn" onclick="previousVideo()">‹</button>
+            <video id="modalVideo" controls autoplay muted="false">
+                <source src="" type="video/mp4">
+            </video>
+            <button class="nav-btn next-btn" onclick="nextVideo()">›</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
