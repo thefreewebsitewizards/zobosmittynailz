@@ -1284,7 +1284,7 @@ class EcommerceApp {
         if (hoverImg?.src) productImages.push(hoverImg.src);
         
         // Add holographic shine hovered image
-        productImages.push('images/collections/holographic shine hovered.png');
+        // productImages.push('images/collections/holographic shine hovered.png');
         
         // Add a third product image for gallery consistency
         productImages.push('images/other products/sizing kit.png');
