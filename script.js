@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initCollectionsCarousel();
     createValueSparkles();
     createBrandSparkles();
+    createCollectionsSparkles();
     initCustomOrdersForm();
 });
 
@@ -58,6 +59,28 @@ function createValueSparkles() {
         sparkle.style.animationDuration = (Math.random() * 2 + 3) + 's';
         sparkle.style.zIndex = '1';
         valueProp.appendChild(sparkle);
+    }
+}
+
+// Create Collections Sparkles
+function createCollectionsSparkles() {
+    const collectionsSection = document.querySelector('.featured-collections');
+    if (!collectionsSection) return;
+    
+    // Remove any existing sparkles first
+    const existingSparkles = collectionsSection.querySelectorAll('.collections-sparkle');
+    existingSparkles.forEach(sparkle => sparkle.remove());
+    
+    // Create 25 black glitter particles
+    for (let i = 0; i < 25; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = Math.random() > 0.5 ? 'collections-sparkle sparkle-alt' : 'collections-sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() * 2 + 's';
+        sparkle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        sparkle.style.zIndex = '1';
+        collectionsSection.appendChild(sparkle);
     }
 }
 

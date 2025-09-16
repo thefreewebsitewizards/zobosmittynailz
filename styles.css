@@ -2349,6 +2349,7 @@ body:not(.has-promo) .navbar {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
     position: absolute;
     top: 0;
     left: 0;
@@ -2743,44 +2744,24 @@ body:not(.has-promo) .navbar {
     z-index: 2;
 }
 
-/* Glitter Effects for Shop Our Collections */
-.featured-collections::before {
-    content: '';
+/* Collections Sparkles */
+.collections-sparkle {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(2px 2px at 20px 30px, rgba(255, 215, 0, 0.8), transparent),
-        radial-gradient(2px 2px at 40px 70px, rgba(255, 192, 203, 0.8), transparent),
-        radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.9), transparent),
-        radial-gradient(1px 1px at 130px 80px, rgba(255, 215, 0, 0.7), transparent),
-        radial-gradient(2px 2px at 160px 30px, rgba(255, 192, 203, 0.6), transparent);
-    background-repeat: repeat;
-    background-size: 200px 100px;
-    animation: glitterFloat 8s ease-in-out infinite;
-    pointer-events: none;
+    width: 20px;
+    height: 20px;
+    background-image: url('images/glitter icon/sparkle.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: glitter 3s infinite;
+    filter: brightness(0);
     z-index: 1;
+    pointer-events: none;
 }
 
-.featured-collections::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(1px 1px at 50px 50px, rgba(255, 255, 255, 0.8), transparent),
-        radial-gradient(2px 2px at 100px 25px, rgba(255, 215, 0, 0.6), transparent),
-        radial-gradient(1px 1px at 150px 75px, rgba(255, 192, 203, 0.7), transparent),
-        radial-gradient(1px 1px at 200px 45px, rgba(255, 255, 255, 0.9), transparent);
-    background-repeat: repeat;
-    background-size: 250px 120px;
-    animation: glitterFloat 12s ease-in-out infinite reverse;
-    pointer-events: none;
-    z-index: 1;
+.collections-sparkle.sparkle-alt {
+    background-image: url('images/glitter icon/sparkle2.svg');
+    animation-duration: 4s;
 }
 
 @keyframes glitterFloat {
