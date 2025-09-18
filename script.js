@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createBrandSparkles();
     createCollectionsSparkles();
     createAboutSparkles();
+    initValueCardsAnimation();
     initCustomOrdersForm();
 });
 
@@ -105,6 +106,31 @@ function createAboutSparkles() {
         sparkle.style.zIndex = '1';
         aboutSection.appendChild(sparkle);
     }
+}
+
+// Initialize Value Cards Scroll Animation
+function initValueCardsAnimation() {
+    const valueCards = document.querySelectorAll('.value-item');
+    
+    if (!valueCards.length) return;
+    
+    const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    valueCards.forEach((card) => {
+        observer.observe(card);
+    });
 }
 
 function initPromoBanner() {
