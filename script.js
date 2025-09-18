@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createValueSparkles();
     createBrandSparkles();
     createCollectionsSparkles();
+    createAboutSparkles();
     initCustomOrdersForm();
 });
 
@@ -81,6 +82,28 @@ function createCollectionsSparkles() {
         sparkle.style.animationDuration = (Math.random() * 2 + 3) + 's';
         sparkle.style.zIndex = '1';
         collectionsSection.appendChild(sparkle);
+    }
+}
+
+// Create About Section Sparkles
+function createAboutSparkles() {
+    const aboutSection = document.querySelector('.about-snapshot');
+    if (!aboutSection) return;
+    
+    // Remove any existing sparkles first
+    const existingSparkles = aboutSection.querySelectorAll('.about-sparkle');
+    existingSparkles.forEach(sparkle => sparkle.remove());
+    
+    // Create 25 black glitter particles
+    for (let i = 0; i < 25; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = Math.random() > 0.5 ? 'about-sparkle sparkle-alt' : 'about-sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() * 2 + 's';
+        sparkle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        sparkle.style.zIndex = '1';
+        aboutSection.appendChild(sparkle);
     }
 }
 

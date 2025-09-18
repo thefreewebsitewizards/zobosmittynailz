@@ -2814,6 +2814,26 @@ body:not(.has-promo) .navbar {
     animation-duration: 4s;
 }
 
+/* About Section Sparkles */
+.about-sparkle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url('images/glitter icon/sparkle.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: glitter 3s infinite;
+    filter: brightness(0) invert(1);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.about-sparkle.sparkle-alt {
+    background-image: url('images/glitter icon/sparkle2.svg');
+    animation-duration: 4s;
+}
+
 @keyframes glitterFloat {
     0%, 100% {
         transform: translateY(0px) translateX(0px);
@@ -3051,6 +3071,8 @@ body:not(.has-promo) .navbar {
     padding: 6rem 0;
     background: #000;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .about-content h2 {
