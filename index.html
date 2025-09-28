@@ -101,7 +101,7 @@
             <div class="cart-total">
                 <div class="total-row">
                     <span>Subtotal:</span>
-                    <span id="cart-subtotal">£0.00</span>
+                    <span id="cart-subtotal">$0.00</span>
                 </div>
                 <div class="total-row">
                     <span>Shipping:</span>
@@ -109,11 +109,11 @@
                 </div>
                 <div class="total-row discount-row" id="cart-discount-row" style="display: none;">
                     <span>Discount:</span>
-                    <span id="cart-discount">-£0.00</span>
+                    <span id="cart-discount">-$0.00</span>
                 </div>
                 <div class="total-row total-final">
                     <span>Total:</span>
-                    <span id="cart-total">£0.00</span>
+                    <span id="cart-total">$0.00</span>
                 </div>
             </div>
             <div class="cart-promo-section">
@@ -327,19 +327,19 @@
                             <div class="checkout-totals">
                                 <div class="total-row">
                                     <span>Subtotal:</span>
-                                    <span id="checkout-subtotal">£0.00</span>
+                                    <span id="checkout-subtotal">$0.00</span>
                                 </div>
                                 <div class="total-row">
                                     <span>Shipping:</span>
-                                    <span id="checkout-shipping">£4.99</span>
+                                    <span id="checkout-shipping">$4.99</span>
                                 </div>
                                 <div class="total-row discount-row" id="discount-row" style="display: none;">
                                     <span>Discount:</span>
-                                    <span id="checkout-discount">-£0.00</span>
+                                    <span id="checkout-discount">-$0.00</span>
                                 </div>
                                 <div class="total-row final-total">
                                     <span>Total:</span>
-                                    <span id="checkout-total">£0.00</span>
+                                    <span id="checkout-total">$0.00</span>
                                 </div>
                             </div>
                             <div class="discount-code">
@@ -419,7 +419,7 @@
                                 <img src="images/collections/midnight glamour hover.png" alt="Midnight Glamour Nails Hover" class="hover-image" loading="lazy">
                                 <div class="card-content">
                                      <h3>Midnight Glamour</h3>
-                                     <span class="price">£45.00</span>
+                                     <span class="price">$45.00</span>
                                  </div>
                             </div>
                         </div>
@@ -430,7 +430,7 @@
                                 <img src="images/collections/rose gold dreams hovered.png" alt="Rose Gold Dreams Nails Hover" class="hover-image" loading="lazy">
                                 <div class="card-content">
                                      <h3>Rose Gold Dreams</h3>
-                                     <span class="price">£48.00</span>
+                                     <span class="price">$48.00</span>
                                  </div>
                             </div>
                         </div>
@@ -441,7 +441,7 @@
                                 <img src="images/collections/crystal clear.png" alt="Crystal Clear Nails Hover" class="hover-image" loading="lazy">
                                 <div class="card-content">
                                      <h3>Crystal Clear</h3>
-                                     <span class="price">£42.00</span>
+                                     <span class="price">$42.00</span>
                                  </div>
                             </div>
                         </div>
@@ -452,7 +452,7 @@
                                 <img src="images/collections/holographic shine hovered.png" alt="Holographic Shine Nails Hover" class="hover-image" loading="lazy">
                                 <div class="card-content">
                                      <h3>Holographic Shine</h3>
-                                     <span class="price">£52.00</span>
+                                     <span class="price">$52.00</span>
                                  </div>
                             </div>
                         </div>
@@ -533,37 +533,37 @@
             <h2 class="section-title">As Seen on Instagram</h2>
             <div class="instagram-grid">
                 <div class="instagram-video" onclick="openVideoModal(0)">
-                    <video muted loop autoplay>
+                    <video muted loop autoplay playsinline>
                         <source src="videos/video1.mp4" type="video/mp4">
                     </video>
                     <div class="play-overlay">▶</div>
                 </div>
                 <div class="instagram-video" onclick="openVideoModal(1)">
-                    <video muted loop autoplay>
+                    <video muted loop autoplay playsinline>
                         <source src="videos/video2.mp4" type="video/mp4">
                     </video>
                     <div class="play-overlay">▶</div>
                 </div>
                 <div class="instagram-video" onclick="openVideoModal(2)">
-                    <video muted loop autoplay>
+                    <video muted loop autoplay playsinline>
                         <source src="videos/video3.mp4" type="video/mp4">
                     </video>
                     <div class="play-overlay">▶</div>
                 </div>
                 <div class="instagram-video" onclick="openVideoModal(3)">
-                    <video muted loop autoplay>
+                    <video muted loop autoplay playsinline>
                         <source src="videos/video4.mp4" type="video/mp4">
                     </video>
                     <div class="play-overlay">▶</div>
                 </div>
                 <div class="instagram-video" onclick="openVideoModal(4)">
-                    <video muted loop autoplay>
+                    <video muted loop autoplay playsinline>
                         <source src="videos/video5.mp4" type="video/mp4">
                     </video>
                     <div class="play-overlay">▶</div>
                 </div>
                 <div class="instagram-video" onclick="openVideoModal(5)">
-                    <video muted loop autoplay>
+                    <video muted loop autoplay playsinline>
                         <source src="videos/video6.mp4" type="video/mp4">
                     </video>
                     <div class="play-overlay">▶</div>
@@ -682,7 +682,7 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeVideoModal()">&times;</span>
             <button class="nav-btn prev-btn" onclick="previousVideo()">‹</button>
-            <video id="modalVideo" controls autoplay muted="false">
+            <video id="modalVideo" controls playsinline>
                 <source src="" type="video/mp4">
             </video>
             <button class="nav-btn next-btn" onclick="nextVideo()">›</button>

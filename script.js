@@ -756,13 +756,18 @@ class EcommerceApp {
         if (!priceString || priceString.toUpperCase() === 'FREE') {
             return 0;
         }
-        const cleanPrice = priceString.toString().replace('£', '').replace(',', '');
+        const cleanPrice = priceString.toString().replace(/£|\$|AUD|A\$/g, '').replace(/,/g, '');
         const parsed = parseFloat(cleanPrice);
         return isNaN(parsed) ? 0 : parsed;
     }
 
     formatPrice(price) {
-        return price === 0 ? 'FREE' : `£${price.toFixed(2)}`;
+        try {
+            const formatter = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
+            return price === 0 ? 'FREE' : formatter.format(price);
+        } catch (e) {
+            return price === 0 ? 'FREE' : `$${price.toFixed(2)}`;
+        }
     }
 
     initEcommerce() {
@@ -809,7 +814,7 @@ class EcommerceApp {
                     const mockProductCard = document.createElement('div');
                     mockProductCard.innerHTML = `
                         <h3 class="product-name">${slide.querySelector('h3')?.textContent || 'Collection Item'}</h3>
-                        <div class="price">${slide.querySelector('.price')?.textContent || '£0.00'}</div>
+                        <div class="price">${slide.querySelector('.price')?.textContent || '$0.00'}</div>
                         <img class="product-img default" src="${slide.querySelector('img')?.src || ''}" alt="Product">
                         <p class="product-description">Beautiful ${slide.querySelector('h3')?.textContent || 'Collection Item'} collection from Zobosmitty Nailz</p>
                     `;
@@ -1083,11 +1088,11 @@ class EcommerceApp {
         const discountEl = document.getElementById('cart-discount');
         const discountRow = document.getElementById('cart-discount-row');
         
-        if (subtotalEl) subtotalEl.textContent = `£${subtotal.toFixed(2)}`;
-        if (totalEl) totalEl.textContent = `£${total.toFixed(2)}`;
+        if (subtotalEl) subtotalEl.textContent = this.formatPrice(subtotal);
+        if (totalEl) totalEl.textContent = this.formatPrice(total);
         
         if (discount > 0 && discountEl && discountRow) {
-            discountEl.textContent = `-£${discount.toFixed(2)}`;
+            discountEl.textContent = `-${this.formatPrice(discount)}`;
             discountRow.style.display = 'flex';
         } else if (discountRow) {
             discountRow.style.display = 'none';
@@ -1133,7 +1138,7 @@ class EcommerceApp {
                 const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                 this.cartDiscount = subtotal * validCodes[code];
                 this.updateCartTotals();
-                this.showPromoMessage(`Promo code applied! You saved £${this.cartDiscount.toFixed(2)}`, 'success');
+                this.showPromoMessage(`Promo code applied! You saved ${this.formatPrice(this.cartDiscount)}`, 'success');
                 promoInput.value = '';
                 promoInput.disabled = true;
                 applyBtn.textContent = 'Applied';
@@ -1244,11 +1249,11 @@ class EcommerceApp {
         const discount = this.currentDiscount || 0;
         const total = subtotal + shipping - discount;
         
-        document.getElementById('checkout-subtotal').textContent = `£${subtotal.toFixed(2)}`;
-        document.getElementById('checkout-total').textContent = `£${total.toFixed(2)}`;
+        document.getElementById('checkout-subtotal').textContent = this.formatPrice(subtotal);
+        document.getElementById('checkout-total').textContent = this.formatPrice(total);
         
         if (discount > 0) {
-            document.getElementById('checkout-discount').textContent = `-£${discount.toFixed(2)}`;
+            document.getElementById('checkout-discount').textContent = `-${this.formatPrice(discount)}`;
             document.getElementById('discount-row').style.display = 'flex';
         }
     }
@@ -1265,7 +1270,7 @@ class EcommerceApp {
             const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             this.currentDiscount = subtotal * validCodes[code];
             this.calculateCheckoutTotals();
-            this.showNotification(`Discount code applied! You saved £${this.currentDiscount.toFixed(2)}`);
+            this.showNotification(`Discount code applied! You saved ${this.formatPrice(this.currentDiscount)}`);
             this.discountInput.value = '';
         } else {
             this.showNotification('Invalid discount code', 'error');
@@ -1533,7 +1538,7 @@ class EcommerceApp {
             this.addToCart({
                 id: productId,
                 name: productName,
-                price: parseFloat(productPrice.replace('£', '')),
+                price: this.parsePrice(productPrice),
                 image: productImages[currentImageIndex],
                 size: selectedSize,
                 quantity: quantity
@@ -1545,7 +1550,7 @@ class EcommerceApp {
 
     showQuickViewFromButton(button) {
         const productName = button.getAttribute('data-name') || button.dataset.name || 'Product';
-        const productPrice = button.getAttribute('data-price') || button.dataset.price || '£0.00';
+        const productPrice = button.getAttribute('data-price') || button.dataset.price || '0.00';
         const productImage = button.getAttribute('data-image') || button.dataset.image || '';
         const productDescription = button.getAttribute('data-description') || button.dataset.description || 'Premium product';
         const productId = button.getAttribute('data-product-id') || button.dataset.productId || 'product-' + Date.now();
@@ -2010,6 +2015,10 @@ function openVideoModal(index) {
     const modalVideo = document.getElementById('modalVideo');
     
     modalVideo.src = videos[currentVideoIndex];
+    // Ensure inline playback on mobile to avoid fullscreen pop-ups
+    modalVideo.setAttribute('playsinline', '');
+    modalVideo.playsInline = true;
+    // Unmute will only take effect after a user gesture on mobile
     modalVideo.muted = false;
     modal.style.display = 'block';
     
