@@ -1764,8 +1764,8 @@ class ProductFilter {
         productsArray.sort((a, b) => {
             const aName = a.querySelector('.product-name, .product-title')?.textContent || '';
             const bName = b.querySelector('.product-name, .product-title')?.textContent || '';
-            const aPrice = parseFloat(a.querySelector('.price, .product-price')?.textContent.replace('£', '') || '0');
-            const bPrice = parseFloat(b.querySelector('.price, .product-price')?.textContent.replace('£', '') || '0');
+            const aPrice = parseFloat((a.querySelector('.price, .product-price')?.textContent || '0').replace(/£|\$|AUD|A\$/g, '').replace(/,/g, ''));
+            const bPrice = parseFloat((b.querySelector('.price, .product-price')?.textContent || '0').replace(/£|\$|AUD|A\$/g, '').replace(/,/g, ''));
 
             switch (sortValue) {
                 case 'name-asc':
