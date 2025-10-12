@@ -105,7 +105,7 @@
                 </div>
                 <div class="total-row">
                     <span>Shipping:</span>
-                    <span>Free</span>
+                    <span id="cart-shipping">$4.99</span>
                 </div>
                 <div class="total-row discount-row" id="cart-discount-row" style="display: none;">
                     <span>Discount:</span>
@@ -289,33 +289,7 @@
                             </form>
                         </div>
 
-                        <div class="checkout-section">
-                            <h3>Payment Information</h3>
-                            <form class="checkout-form">
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="card-number">Card Number *</label>
-                                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="expiry">Expiry Date *</label>
-                                        <input type="text" id="expiry" placeholder="MM/YY">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cvv">CVV</label>
-                                        <input type="text" id="cvv" placeholder="123">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="cardholder-name">Cardholder Name</label>
-                                        <input type="text" id="cardholder-name">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        
                     </div>
 
                     <div class="checkout-right">
@@ -347,6 +321,59 @@
                                 <button type="button" id="apply-discount">Apply</button>
                             </div>
                             <button class="place-order-btn" id="place-order">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal-overlay" id="payment-modal">
+        <div class="modal checkout-modal">
+            <div class="modal-header">
+                <h2>Payment</h2>
+                <button class="modal-close" onclick="closeModal('payment-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-container">
+                    <div class="checkout-left">
+                        <div class="checkout-section">
+                            <h3>Payment Information</h3>
+                            <div class="payment-options">
+                                <div class="payment-content" id="paypal-payment" style="display: block;">
+                                    <div id="paypal-buttons"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-right">
+                        <div class="order-summary">
+                            <h3>Order Summary</h3>
+                            <div class="checkout-items" id="payment-items"></div>
+                            <div class="checkout-totals">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="payment-subtotal">$0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Shipping:</span>
+                                    <span id="payment-shipping">$0.00</span>
+                                </div>
+                                <div class="total-row discount-row" id="payment-discount-row" style="display: none;">
+                                    <span>Discount:</span>
+                                    <span id="payment-discount">-$0.00</span>
+                                </div>
+                                <div class="total-row final-total">
+                                    <span>Total:</span>
+                                    <span id="payment-total">$0.00</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -415,10 +442,10 @@
                     <div class="carousel-track" id="carousel-track">
                         <div class="collection-slide">
                             <div class="card-image">
-                                <img src="images/collections/midnight glamour.png" alt="Midnight Glamour Nails" loading="lazy">
-                                <img src="images/collections/midnight glamour hover.png" alt="Midnight Glamour Nails Hover" class="hover-image" loading="lazy">
+                                <img src="images/collections/clients nails product collections/Product1.png" alt="Nail Collection 1" loading="lazy">
+                                <img src="images/collections/clients nails product collections/nails hovered.png" alt="Nail Collection 1 Hover" class="hover-image" loading="lazy">
                                 <div class="card-content">
-                                     <h3>Midnight Glamour</h3>
+                                     <h3>Nail Collection 1</h3>
                                      <span class="price">$45.00</span>
                                  </div>
                             </div>
@@ -426,10 +453,10 @@
 
                         <div class="collection-slide">
                             <div class="card-image">
-                                <img src="images/collections/rose gold dreams.png" alt="Rose Gold Dreams Nails" loading="lazy">
-                                <img src="images/collections/rose gold dreams hovered.png" alt="Rose Gold Dreams Nails Hover" class="hover-image" loading="lazy">
+                                <img src="images/collections/clients nails product collections/Product2.png" alt="Nail Collection 2" loading="lazy">
+                                <img src="images/collections/clients nails product collections/nails hovered.png" alt="Nail Collection 2 Hover" class="hover-image" loading="lazy">
                                 <div class="card-content">
-                                     <h3>Rose Gold Dreams</h3>
+                                     <h3>Nail Collection 2</h3>
                                      <span class="price">$48.00</span>
                                  </div>
                             </div>
@@ -437,10 +464,10 @@
 
                         <div class="collection-slide">
                             <div class="card-image">
-                                <img src="images/collections/crystal clear hovered.png" alt="Crystal Clear Nails" loading="lazy">
-                                <img src="images/collections/crystal clear.png" alt="Crystal Clear Nails Hover" class="hover-image" loading="lazy">
+                                <img src="images/collections/clients nails product collections/Product3.png" alt="Nail Collection 3" loading="lazy">
+                                <img src="images/collections/clients nails product collections/nails hovered.png" alt="Nail Collection 3 Hover" class="hover-image" loading="lazy">
                                 <div class="card-content">
-                                     <h3>Crystal Clear</h3>
+                                     <h3>Nail Collection 3</h3>
                                      <span class="price">$42.00</span>
                                  </div>
                             </div>
@@ -448,11 +475,22 @@
 
                         <div class="collection-slide">
                             <div class="card-image">
-                                <img src="images/collections/holographic shine.png" alt="Holographic Shine Nails" loading="lazy">
-                                <img src="images/collections/holographic shine hovered.png" alt="Holographic Shine Nails Hover" class="hover-image" loading="lazy">
+                                <img src="images/collections/clients nails product collections/Product4.png" alt="Nail Collection 4" loading="lazy">
+                                <img src="images/collections/clients nails product collections/nails hovered.png" alt="Nail Collection 4 Hover" class="hover-image" loading="lazy">
                                 <div class="card-content">
-                                     <h3>Holographic Shine</h3>
+                                     <h3>Nail Collection 4</h3>
                                      <span class="price">$52.00</span>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="collection-slide">
+                            <div class="card-image">
+                                <img src="images/collections/clients nails product collections/Product5.png" alt="Nail Collection 5" loading="lazy">
+                                <img src="images/collections/clients nails product collections/nails hovered.png" alt="Nail Collection 5 Hover" class="hover-image" loading="lazy">
+                                <div class="card-content">
+                                     <h3>Nail Collection 5</h3>
+                                     <span class="price">$50.00</span>
                                  </div>
                             </div>
                         </div>
@@ -470,6 +508,7 @@
                     <button class="indicator" data-slide="1"></button>
                     <button class="indicator" data-slide="2"></button>
                     <button class="indicator" data-slide="3"></button>
+                    <button class="indicator" data-slide="4"></button>
                 </div>
             </div>
             <div class="collections-cta">
@@ -690,6 +729,8 @@
     </div>
 
     <!-- JavaScript -->
+    <!-- PayPal SDK (Sandbox). Replace client-id with live ID for production. -->
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=AUD"></script>
     <script src="script.js"></script>
 </body>
 </html>

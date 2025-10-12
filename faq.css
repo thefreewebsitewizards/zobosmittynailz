@@ -485,27 +485,65 @@
     color: #333;
 }
 
-/* Notification Styles for Save Sizes */
+/* Notification Styles for Save Sizes (aligned with global responsiveness) */
 .notification {
     position: fixed;
-    top: .5rem;
-    right: 15%;
-    transform: translateX(50%);
+    top: calc(16px + env(safe-area-inset-top));
+    right: calc(16px + env(safe-area-inset-right));
+    left: auto;
     background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
     color: white;
     padding: 1.2rem 2rem;
+    padding-right: 44px; /* space for close button */
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(40, 167, 69, 0.3), 0 2px 8px rgba(0, 0, 0, 0.1);
     z-index: 10000;
     animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: clamp(14px, 3.5vw, 16px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
-    min-width: 280px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.8rem;
+    white-space: nowrap;
+    box-sizing: border-box;
+    max-width: min(560px, calc(100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+    overflow: hidden;
+}
+
+/* Ensure content remains on a single line with truncation */
+.notification .notification-content,
+.notification .notification-message {
+    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Vertically center the close button */
+.notification .notification-close {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 6px;
+    transform: translateY(-50%);
+    transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.notification .notification-close:hover {
+    background: rgba(255,255,255,0.25);
+    opacity: 1;
 }
 
 .notification::before {
@@ -549,28 +587,28 @@
 /* Tablet responsive notification */
 @media (max-width: 1024px) and (min-width: 481px) {
     .notification {
-        top: 1.5rem;
+        top: calc(16px + env(safe-area-inset-top));
         left: auto;
-        right: 2rem;
+        right: calc(16px + env(safe-area-inset-right));
         transform: none;
-        max-width: 400px;
-        min-width: 300px;
+        max-width: min(480px, calc(100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right)));
         text-align: left;
-        font-size: 0.95rem;
+        font-size: clamp(14px, 2.8vw, 16px);
         padding: 1.2rem 2rem;
+        padding-right: 44px;
     }
 }
 
 @media (max-width: 480px) {
     .notification {
-        top: 1rem;
-        left: 1rem;
-        right: 1rem;
+        top: calc(12px + env(safe-area-inset-top));
+        left: calc(12px + env(safe-area-inset-left));
+        right: calc(12px + env(safe-area-inset-right));
         transform: none;
-        max-width: calc(100vw - 2rem);
-        min-width: auto;
-        font-size: 0.85rem;
+        max-width: calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right));
+        font-size: clamp(14px, 4vw, 16px);
         padding: 0.8rem 1rem;
+        padding-right: 44px;
     }
 }
 

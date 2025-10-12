@@ -812,10 +812,19 @@ class EcommerceApp {
                 if (slide) {
                     // Create a mock product card element for the showQuickView method
                     const mockProductCard = document.createElement('div');
+                    const defaultSrc = slide.querySelector('img:not(.hover-image)')?.src || '';
+                    const hoverSrc = slide.querySelector('img.hover-image')?.src || '';
+                    let primarySrc = defaultSrc;
+                    let secondarySrc = hoverSrc;
+                    if (primarySrc && /hover/i.test(primarySrc) && secondarySrc && !/hover/i.test(secondarySrc)) {
+                        primarySrc = secondarySrc;
+                        secondarySrc = defaultSrc;
+                    }
                     mockProductCard.innerHTML = `
                         <h3 class="product-name">${slide.querySelector('h3')?.textContent || 'Collection Item'}</h3>
                         <div class="price">${slide.querySelector('.price')?.textContent || '$0.00'}</div>
-                        <img class="product-img default" src="${slide.querySelector('img')?.src || ''}" alt="Product">
+                        <img class="product-img default" src="${primarySrc}" alt="Product">
+                        ${secondarySrc ? `<img class=\"product-img hover\" src=\"${secondarySrc}\" alt=\"Product Hover\">` : ''}
                         <p class="product-description">Beautiful ${slide.querySelector('h3')?.textContent || 'Collection Item'} collection from Zobosmitty Nailz</p>
                     `;
                     
@@ -1079,16 +1088,18 @@ class EcommerceApp {
 
     updateCartTotals() {
         const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const shipping = subtotal > 50 ? 0 : 4.99;
+        const shipping = 4.99; // Keep consistent with checkout
         const discount = this.cartDiscount || 0;
         const total = subtotal + shipping - discount;
         
         const subtotalEl = document.getElementById('cart-subtotal');
+        const shippingEl = document.getElementById('cart-shipping');
         const totalEl = document.getElementById('cart-total');
         const discountEl = document.getElementById('cart-discount');
         const discountRow = document.getElementById('cart-discount-row');
         
         if (subtotalEl) subtotalEl.textContent = this.formatPrice(subtotal);
+        if (shippingEl) shippingEl.textContent = this.formatPrice(shipping);
         if (totalEl) totalEl.textContent = this.formatPrice(total);
         
         if (discount > 0 && discountEl && discountRow) {
@@ -1304,24 +1315,28 @@ class EcommerceApp {
         }
         */
         
-        // Simulate order processing
+        // Simulate order processing then open Payment modal
         this.placeOrderBtn.textContent = 'Processing...';
         this.placeOrderBtn.disabled = true;
-        
+
         setTimeout(() => {
-            this.cart = [];
-            this.currentDiscount = 0;
-            this.updateCartCount();
-            this.renderCart();
-            this.saveCart();
+            // Do not clear cart yet; finalize after successful payment
             closeModal('checkout-modal');
-            this.showNotification('Order placed successfully! You will receive a confirmation email shortly.');
-            
-            // Reset button
+            openModal('payment-modal');
+
+            // Populate Payment modal summary
+            populatePaymentSummary();
+
+            // Ensure PayPal buttons are initialized inside the Payment modal
+            try { initPayPalButtons(); } catch (e) { console.error(e); }
+
+            // Reset button state
             this.placeOrderBtn.textContent = 'Place Order';
             this.placeOrderBtn.disabled = false;
-        }, 2000);
+        }, 1000);
     }
+
+ 
 
     showQuickView(productCard) {
         const productName = productCard.querySelector('.product-name, .product-title')?.textContent || '';
@@ -1539,7 +1554,7 @@ class EcommerceApp {
                 id: productId,
                 name: productName,
                 price: this.parsePrice(productPrice),
-                image: productImages[currentImageIndex],
+                image: productImages[0],
                 size: selectedSize,
                 quantity: quantity
             });
@@ -1630,23 +1645,70 @@ class EcommerceApp {
         // Create notification element
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
-        notification.textContent = message;
-        
+        notification.innerHTML = `
+            <button class="notification-close" aria-label="Dismiss notification">&times;</button>
+            <div class="notification-content"><span class="notification-message">${message}</span></div>
+        `;
+
         // Add to page
         document.body.appendChild(notification);
-        
+
         // Show notification
-        setTimeout(() => notification.classList.add('show'), 100);
-        
-        // Remove notification
-        setTimeout(() => {
+        const showTimeout = setTimeout(() => notification.classList.add('show'), 100);
+
+        // Auto-remove after 3 seconds
+        const hideTimeout = setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => notification.remove(), 300);
         }, 3000);
+
+        // Manual dismiss
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn?.addEventListener('click', () => {
+            clearTimeout(showTimeout);
+            clearTimeout(hideTimeout);
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        });
     }
 }
 
 // Modal Functions
+function populatePaymentSummary() {
+    try {
+        const itemsSrc = document.getElementById('checkout-items');
+        const itemsDest = document.getElementById('payment-items');
+        if (itemsSrc && itemsDest) {
+            itemsDest.innerHTML = itemsSrc.innerHTML;
+        }
+
+        const copyText = (srcId, destId) => {
+            const src = document.getElementById(srcId);
+            const dest = document.getElementById(destId);
+            if (src && dest) dest.textContent = src.textContent;
+        };
+
+        copyText('checkout-subtotal', 'payment-subtotal');
+        copyText('checkout-shipping', 'payment-shipping');
+        copyText('checkout-total', 'payment-total');
+
+        // Handle discount visibility
+        const discountSrcRow = document.getElementById('discount-row');
+        const discountDestRow = document.getElementById('payment-discount-row');
+        const discountSrc = document.getElementById('checkout-discount');
+        const discountDest = document.getElementById('payment-discount');
+        if (discountDestRow) {
+            const isDiscountVisible = discountSrcRow && discountSrcRow.style.display !== 'none';
+            discountDestRow.style.display = isDiscountVisible ? '' : 'none';
+            if (isDiscountVisible && discountSrc && discountDest) {
+                discountDest.textContent = discountSrc.textContent;
+            }
+        }
+    } catch (e) {
+        console.error('populatePaymentSummary error:', e);
+    }
+}
+
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
@@ -1853,7 +1915,9 @@ function initCollectionsCarousel() {
     function updateCarousel() {
         const containerWidth = carousel.querySelector('.carousel-container').offsetWidth;
         const slideWidth = slides[0].offsetWidth;
-        const gap = 20;
+        // Read actual CSS gap from the track to avoid phantom spacing
+        const computedGap = parseInt(getComputedStyle(track).gap) || 0;
+        const gap = computedGap;
         const slidesToShow = getSlidesToShow();
         
         // Calculate proper translation to avoid excess space
@@ -2233,16 +2297,114 @@ function loadSavedSizes() {
 function showSizesNotification(message, type = 'success') {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
-    notification.innerHTML = `<span>${message}</span>`;
-    
+    notification.innerHTML = `
+        <button class="notification-close" aria-label="Dismiss notification">&times;</button>
+        <div class="notification-content"><span class="notification-message">${message}</span></div>
+    `;
+
     document.body.appendChild(notification);
-    
+
     // Auto remove after 3 seconds
-    setTimeout(() => {
+    const hideTimeout = setTimeout(() => {
         if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
+            notification.classList.remove('show');
+            setTimeout(() => notification.parentNode?.removeChild(notification), 300);
         }
     }, 3000);
+
+    // Manual dismiss
+    const closeBtn = notification.querySelector('.notification-close');
+    closeBtn?.addEventListener('click', () => {
+        clearTimeout(hideTimeout);
+        notification.classList.remove('show');
+        setTimeout(() => notification.parentNode?.removeChild(notification), 300);
+    });
+}
+
+// Payment Options UI and Integrations
+function initPaymentOptions() {
+    const cardTab = document.querySelector('.payment-tab[data-method="card"]');
+    const paypalTab = document.querySelector('.payment-tab[data-method="paypal"]');
+    const cardContent = document.getElementById('card-payment');
+    const paypalContent = document.getElementById('paypal-payment');
+    const stripeButton = document.getElementById('stripe-pay-button');
+
+    if (cardTab && paypalTab && cardContent && paypalContent) {
+        cardTab.addEventListener('click', () => {
+            cardTab.classList.add('active');
+            paypalTab.classList.remove('active');
+            cardContent.style.display = 'block';
+            paypalContent.style.display = 'none';
+        });
+
+        paypalTab.addEventListener('click', () => {
+            paypalTab.classList.add('active');
+            cardTab.classList.remove('active');
+            paypalContent.style.display = 'block';
+            cardContent.style.display = 'none';
+        });
+    }
+
+    if (stripeButton) {
+        stripeButton.addEventListener('click', () => {
+            const totalText = document.getElementById('checkout-total')?.textContent || '$0.00';
+            const amount = (typeof ecommerceApp !== 'undefined' && ecommerceApp)
+                ? ecommerceApp.parsePrice(totalText)
+                : parseFloat((totalText || '').toString().replace(/[^\d.]/g, '')) || 0;
+
+            if (window.STRIPE_CHECKOUT_URL) {
+                // Redirect to configured Stripe Checkout Payment Link (hosted, secure)
+                window.location.href = window.STRIPE_CHECKOUT_URL;
+            } else {
+                alert('Card payments are not configured yet. Please set STRIPE_CHECKOUT_URL to your Stripe Checkout link.');
+            }
+        });
+    }
+}
+
+function initPayPalButtons() {
+    const container = document.getElementById('paypal-buttons');
+    if (!container) return;
+    if (container.dataset.rendered === 'true') return;
+    if (typeof paypal === 'undefined') return;
+
+    try {
+        paypal.Buttons({
+            style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' },
+            createOrder: (data, actions) => {
+                const totalText = document.getElementById('payment-total')?.textContent
+                    || document.getElementById('checkout-total')?.textContent
+                    || '$0.00';
+                const amount = (typeof ecommerceApp !== 'undefined' && ecommerceApp)
+                    ? ecommerceApp.parsePrice(totalText)
+                    : parseFloat((totalText || '').toString().replace(/[^\d.]/g, '')) || 0;
+
+                return actions.order.create({
+                    purchase_units: [{ amount: { currency_code: 'AUD', value: amount.toFixed(2) } }]
+                });
+            },
+            onApprove: async (data, actions) => {
+                try {
+                    const details = await actions.order.capture();
+                    if (typeof ecommerceApp !== 'undefined' && ecommerceApp) {
+                        ecommerceApp.clearCart();
+                    }
+                    alert('Payment successful. Thank you!');
+                } catch (err) {
+                    console.error('PayPal capture error:', err);
+                    alert('Payment could not be completed. Please try again.');
+                }
+            },
+            onError: (err) => {
+                console.error('PayPal error:', err);
+                alert('An error occurred with PayPal. Please try again.');
+            }
+        }).render('#paypal-buttons');
+
+        container.dataset.rendered = 'true';
+    } catch (e) {
+        console.error('Failed to initialize PayPal buttons:', e);
+    }
 }
 
 let ecommerceApp;
@@ -2264,4 +2426,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize save sizes functionality
     initSaveSizesFunctionality();
+
+    // Initialize payment options
+    initPaymentOptions();
+    initPayPalButtons();
 });
